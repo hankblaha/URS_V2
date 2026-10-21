@@ -1,0 +1,25 @@
+# Required by Arduino-ESP32 as an ESP-IDF component
+CONFIG_FREERTOS_HZ=1000
+# Run Arduino's setup()/loop() instead of app_main()
+CONFIG_AUTOSTART_ARDUINO=y
+
+# USB drive support (arduino_tinyusb component): USB stack + mass storage
+CONFIG_TINYUSB_ENABLED=y
+CONFIG_TINYUSB_MSC_ENABLED=y
+
+# Needed by Arduino NetworkClientSecure / WiFiClientSecure (HTTPS uploads)
+CONFIG_MBEDTLS_PSK_MODES=y
+CONFIG_MBEDTLS_KEY_EXCHANGE_PSK=y
+CONFIG_ESP_TLS_PSK_VERIFICATION=y
+
+# Firmware is ~1.2 MB: use the 1.5 MB app partition layout.
+# 4MB works on both FireBeetle 2 S3 variants (N4 has 4MB, N16R8 has 16MB).
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# Long filenames on the SD card. Without this the board only sees 8.3 short
+# names (".Spotlight-V100" -> "SPOTLI~1"), so hidden macOS folders are not
+# recognised as hidden and real files upload under truncated names.
+CONFIG_FATFS_LFN_HEAP=y
+CONFIG_FATFS_MAX_LFN=255
+CONFIG_FATFS_API_ENCODING_UTF_8=y
